@@ -115,7 +115,7 @@
   }
 
   card.addEventListener("pointermove", function (event) {
-    if (orientationEnabled || event.pointerType === "touch") return;
+    if (event.pointerType === "touch") return;
 
     var rect = card.getBoundingClientRect();
     if (!rect.width || !rect.height) return;
@@ -126,7 +126,7 @@
   });
 
   card.addEventListener("pointerleave", function (event) {
-    if (event.pointerType !== "touch" && !orientationEnabled) resetTilt();
+    if (event.pointerType !== "touch") resetTilt();
   });
 
   function applyDeadZone(value) {
@@ -190,7 +190,11 @@
     }
   });
 
-  if ("DeviceOrientationEvent" in window) {
+  var hasTouchInput = (navigator.maxTouchPoints > 0) ||
+    ("ontouchstart" in window) ||
+    (window.matchMedia && window.matchMedia("(pointer: coarse)").matches);
+
+  if ("DeviceOrientationEvent" in window && hasTouchInput) {
     if (typeof DeviceOrientationEvent.requestPermission === "function") {
       if (motionButton) {
         motionButton.hidden = false;
