@@ -51,6 +51,7 @@
     </section>
     <section id="view-links" hidden class="profile-view">
       <div class="id-card-wrap">
+        <div class="card-name-backdrop" aria-hidden="true"><span>Тимофей</span></div>
         <article class="id-card" id="id-card" aria-label="Персональная карточка Тимофея">
           <div class="id-card-main">
             <div class="id-card-content">
@@ -66,6 +67,9 @@
         </article>
         <p class="tilt-hint" id="tilt-hint">Наклоняй телефон или двигай мышью</p>
         <button class="motion-button" id="motion-button" type="button" hidden>Включить наклон</button>
+        <button class="gallery-trigger" id="gallery-trigger" type="button" aria-label="Открыть галерею" title="Галерея">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="1.6"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.6"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.6"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.6"/></svg>
+        </button>
       </div>
 
       <div class="profile-sections">
@@ -111,6 +115,23 @@
       </div>
     </section>
   </main>
+</div>
+<div class="gallery-modal" id="gallery-modal" role="dialog" aria-modal="true" aria-labelledby="gallery-title" aria-hidden="true" hidden>
+  <button class="gallery-backdrop" type="button" data-gallery-close aria-label="Закрыть галерею"></button>
+  <section class="gallery-panel" tabindex="-1">
+    <header class="gallery-header">
+      <div><p>Маленький архив</p><h2 id="gallery-title">Галерея</h2></div>
+      <button class="gallery-close" type="button" data-gallery-close aria-label="Закрыть">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
+      </button>
+    </header>
+    <div class="gallery-grid">
+      <figure class="gallery-item"><img src="assets/gallery-01.webp" alt="Белый котик с тарелкой пельменей" loading="lazy"><figcaption>01</figcaption></figure>
+      <figure class="gallery-item"><img src="assets/gallery-02.webp" alt="Милый котик на жёлтом фоне" loading="lazy"><figcaption>02</figcaption></figure>
+      <figure class="gallery-item"><img src="assets/gallery-03.webp" alt="Котик с хитрым выражением мордочки" loading="lazy"><figcaption>03</figcaption></figure>
+      <figure class="gallery-item"><img src="assets/gallery-04.webp" alt="Пухлый белый котик" loading="lazy"><figcaption>04</figcaption></figure>
+    </div>
+  </section>
 </div>
 <div class="dock"><div class="dock-in"><nav class="nav" id="nav" aria-label="Разделы">
 <a href="#home" data-v="home" aria-label="Главная" title="Главная"><svg viewBox="0 0 24 24"><path class="fl" d="M12 2.500l1.600 5.700 5.300-3-3 5.300 5.600 1.500-5.600 1.500 3 5.300-5.300-3L12 21.500l-1.600-5.700-5.300 3 3-5.300L3.500 12.800l5.600-1.500-3-5.300 5.300 3z"/></svg></a>

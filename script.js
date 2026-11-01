@@ -39,6 +39,70 @@
   window.addEventListener("hashchange", route);
   route();
 
+  var galleryTrigger = document.getElementById("gallery-trigger");
+  var galleryModal = document.getElementById("gallery-modal");
+  var galleryPanel = galleryModal && galleryModal.querySelector(".gallery-panel");
+  var galleryCloseButtons = galleryModal ? galleryModal.querySelectorAll("[data-gallery-close]") : [];
+  var previousGalleryFocus = null;
+  var galleryCloseTimer = 0;
+
+  function closeGallery() {
+    if (!galleryModal || galleryModal.hidden) return;
+    galleryModal.classList.remove("is-open");
+    galleryModal.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("gallery-open");
+    window.clearTimeout(galleryCloseTimer);
+    galleryCloseTimer = window.setTimeout(function () {
+      galleryModal.hidden = true;
+      if (previousGalleryFocus && typeof previousGalleryFocus.focus === "function") {
+        previousGalleryFocus.focus();
+      }
+    }, 360);
+  }
+
+  function openGallery() {
+    if (!galleryModal) return;
+    window.clearTimeout(galleryCloseTimer);
+    previousGalleryFocus = document.activeElement;
+    galleryModal.hidden = false;
+    galleryModal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("gallery-open");
+    window.requestAnimationFrame(function () {
+      galleryModal.classList.add("is-open");
+      var closeButton = galleryModal.querySelector(".gallery-close");
+      if (closeButton) closeButton.focus();
+    });
+  }
+
+  if (galleryTrigger && galleryModal) {
+    galleryTrigger.addEventListener("click", openGallery);
+    galleryCloseButtons.forEach(function (button) {
+      button.addEventListener("click", closeGallery);
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (galleryModal.hidden || !galleryModal.classList.contains("is-open")) return;
+      if (event.key === "Escape") {
+        event.preventDefault();
+        closeGallery();
+        return;
+      }
+      if (event.key === "Tab" && galleryPanel) {
+        var focusable = galleryPanel.querySelectorAll("button, a[href], [tabindex]:not([tabindex='-1'])");
+        if (!focusable.length) return;
+        var first = focusable[0];
+        var last = focusable[focusable.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      }
+    });
+  }
+
   var card = document.getElementById("id-card");
   var hint = document.getElementById("tilt-hint");
   var motionButton = document.getElementById("motion-button");
