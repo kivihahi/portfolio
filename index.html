@@ -67,9 +67,6 @@
         </article>
         <p class="tilt-hint" id="tilt-hint">Наклоняй телефон или двигай мышью</p>
         <button class="motion-button" id="motion-button" type="button" hidden>Включить наклон</button>
-        <button class="gallery-trigger" id="gallery-trigger" type="button" aria-label="Открыть галерею" title="Галерея">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="1.6"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.6"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.6"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.6"/></svg>
-        </button>
       </div>
 
       <div class="profile-sections">
@@ -116,6 +113,9 @@
     </section>
   </main>
 </div>
+<button class="gallery-trigger" id="gallery-trigger" type="button" aria-label="Открыть галерею" title="Галерея" hidden>
+  <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="1.6"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.6"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.6"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.6"/></svg>
+</button>
 <div class="gallery-modal" id="gallery-modal" role="dialog" aria-modal="true" aria-labelledby="gallery-title" aria-hidden="true" hidden>
   <button class="gallery-backdrop" type="button" data-gallery-close aria-label="Закрыть галерею"></button>
   <section class="gallery-panel" tabindex="-1">

@@ -25,6 +25,8 @@
     });
 
     document.getElementById("ttl-text").textContent = titles[hash];
+    var galleryButton = document.getElementById("gallery-trigger");
+    if (galleryButton) galleryButton.hidden = hash !== "links";
     document.querySelectorAll("#nav a").forEach(function (link) {
       if (link.getAttribute("data-v") === hash) {
         link.setAttribute("aria-current", "page");
@@ -111,7 +113,7 @@
   var reducedMotion = window.matchMedia &&
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  var maxTilt = 7.5;
+  var maxTilt = 10;
   var currentX = 0;
   var currentY = 0;
   var targetX = 0;
