@@ -8,98 +8,208 @@
     var item = covers[id] || covers.t3kot;
     return "<img src='" + item[0] + "' alt='Обложка проекта " + item[1] + "' loading='lazy' width='200' height='200'>";
   }
-  document.querySelectorAll('[data-cover]').forEach(function (el) {
-    el.innerHTML = cover(el.getAttribute('data-cover'));
+
+  document.querySelectorAll("[data-cover]").forEach(function (el) {
+    el.innerHTML = cover(el.getAttribute("data-cover"));
   });
 
-  var titles = { home: 'Портфолио', projects: 'Проекты', links: 'Профиль' };
+  var titles = { home: "Портфолио", projects: "Проекты", links: "Профиль" };
   var views = Object.keys(titles);
+
   function route() {
-    var h = location.hash.replace('#', '');
-    if (views.indexOf(h) < 0) h = 'home';
-    views.forEach(function (v) { document.getElementById('view-' + v).hidden = v !== h; });
-    document.getElementById('ttl-text').textContent = titles[h];
-    document.querySelectorAll('#nav a').forEach(function (a) {
-      if (a.getAttribute('data-v') === h) a.setAttribute('aria-current', 'page');
-      else a.removeAttribute('aria-current');
+    var hash = location.hash.replace("#", "");
+    if (views.indexOf(hash) < 0) hash = "home";
+
+    views.forEach(function (view) {
+      document.getElementById("view-" + view).hidden = view !== hash;
     });
+
+    document.getElementById("ttl-text").textContent = titles[hash];
+    document.querySelectorAll("#nav a").forEach(function (link) {
+      if (link.getAttribute("data-v") === hash) {
+        link.setAttribute("aria-current", "page");
+      } else {
+        link.removeAttribute("aria-current");
+      }
+    });
+
     window.scrollTo(0, 0);
   }
-  window.addEventListener('hashchange', route);
+
+  window.addEventListener("hashchange", route);
   route();
 
-  var card = document.getElementById('id-card');
-  var hint = document.getElementById('tilt-hint');
-  var motionButton = document.getElementById('motion-button');
+  var card = document.getElementById("id-card");
+  var hint = document.getElementById("tilt-hint");
+  var motionButton = document.getElementById("motion-button");
   if (!card) return;
 
-  var reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var maxTilt = 10;
-  var raf = 0;
+  var reducedMotion = window.matchMedia &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  var maxTilt = 7.5;
+  var currentX = 0;
+  var currentY = 0;
   var targetX = 0;
   var targetY = 0;
+  var animationFrame = 0;
+  var orientationEnabled = false;
+  var orientationBaseline = null;
+  var lastScreenAngle = getScreenAngle();
 
-  function setTilt(x, y) {
-    if (reducedMotion) return;
-    targetX = Math.max(-maxTilt, Math.min(maxTilt, x));
-    targetY = Math.max(-maxTilt, Math.min(maxTilt, y));
-    if (raf) return;
-    raf = requestAnimationFrame(function () {
-      card.style.setProperty('--tilt-x', targetX.toFixed(2) + 'deg');
-      card.style.setProperty('--tilt-y', targetY.toFixed(2) + 'deg');
-      card.style.setProperty('--shine-x', (50 + targetY * 2.2) + '%');
-      card.style.setProperty('--shine-y', (50 - targetX * 2.2) + '%');
-      raf = 0;
-    });
+  function getScreenAngle() {
+    if (window.screen && window.screen.orientation &&
+        typeof window.screen.orientation.angle === "number") {
+      return window.screen.orientation.angle;
+    }
+
+    return typeof window.orientation === "number" ? window.orientation : 0;
   }
+
+  function clamp(value, limit) {
+    return Math.max(-limit, Math.min(limit, value));
+  }
+
+  function scheduleRender() {
+    if (reducedMotion || animationFrame) return;
+    animationFrame = window.requestAnimationFrame(renderTilt);
+  }
+
+  function setTarget(x, y) {
+    targetX = clamp(x, maxTilt);
+    targetY = clamp(y, maxTilt);
+    if (Math.abs(targetX) > 0.12 || Math.abs(targetY) > 0.12) {
+      card.classList.add("is-active");
+    }
+    scheduleRender();
+  }
+
+  function renderTilt() {
+    var easing = 0.14;
+
+    currentX += (targetX - currentX) * easing;
+    currentY += (targetY - currentY) * easing;
+
+    if (Math.abs(targetX - currentX) < 0.025) currentX = targetX;
+    if (Math.abs(targetY - currentY) < 0.025) currentY = targetY;
+
+    card.style.setProperty("--tilt-x", currentX.toFixed(3) + "deg");
+    card.style.setProperty("--tilt-y", currentY.toFixed(3) + "deg");
+    card.style.setProperty("--shine-x", (50 + currentY * 2.4).toFixed(1) + "%");
+    card.style.setProperty("--shine-y", (50 - currentX * 2.4).toFixed(1) + "%");
+
+    var isSettled = currentX === targetX && currentY === targetY;
+    if (isSettled) {
+      animationFrame = 0;
+      if (Math.abs(currentX) < 0.03 && Math.abs(currentY) < 0.03) {
+        card.classList.remove("is-active");
+      }
+      return;
+    }
+
+    animationFrame = window.requestAnimationFrame(renderTilt);
+  }
+
   function resetTilt() {
-    setTilt(0, 0);
-    card.classList.remove('is-active');
+    setTarget(0, 0);
   }
 
-  card.addEventListener('pointermove', function (event) {
-    if (event.pointerType === 'touch') return;
+  card.addEventListener("pointermove", function (event) {
+    if (orientationEnabled || event.pointerType === "touch") return;
+
     var rect = card.getBoundingClientRect();
+    if (!rect.width || !rect.height) return;
+
     var px = (event.clientX - rect.left) / rect.width;
     var py = (event.clientY - rect.top) / rect.height;
-    setTilt((0.5 - py) * maxTilt * 2, (px - 0.5) * maxTilt * 2);
-    card.classList.add('is-active');
+    setTarget((0.5 - py) * maxTilt * 1.5, (px - 0.5) * maxTilt * 1.5);
   });
-  card.addEventListener('pointerleave', resetTilt);
-  card.addEventListener('pointerdown', function (event) {
-    if (event.pointerType !== 'touch') return;
-    var rect = card.getBoundingClientRect();
-    var px = (event.clientX - rect.left) / rect.width;
-    var py = (event.clientY - rect.top) / rect.height;
-    setTilt((0.5 - py) * maxTilt, (px - 0.5) * maxTilt);
-    card.classList.add('is-active');
+
+  card.addEventListener("pointerleave", function (event) {
+    if (event.pointerType !== "touch" && !orientationEnabled) resetTilt();
   });
-  card.addEventListener('pointerup', resetTilt);
-  card.addEventListener('pointercancel', resetTilt);
+
+  function applyDeadZone(value) {
+    var deadZone = 1.25;
+    if (Math.abs(value) <= deadZone) return 0;
+    return Math.sign(value) * (Math.abs(value) - deadZone);
+  }
 
   function handleOrientation(event) {
     if (event.beta == null || event.gamma == null) return;
-    var beta = Math.max(-35, Math.min(35, event.beta));
-    var gamma = Math.max(-35, Math.min(35, event.gamma));
-    setTilt((beta / 35) * maxTilt, (gamma / 35) * maxTilt);
-    card.classList.add('is-active');
+
+    if (!orientationBaseline) {
+      orientationBaseline = { beta: event.beta, gamma: event.gamma };
+      return;
+    }
+
+    var beta = applyDeadZone(event.beta - orientationBaseline.beta);
+    var gamma = applyDeadZone(event.gamma - orientationBaseline.gamma);
+    var angle = ((getScreenAngle() % 360) + 360) % 360;
+    var x;
+    var y;
+
+    if (angle >= 45 && angle < 135) {
+      x = gamma;
+      y = beta;
+    } else if (angle >= 135 && angle < 225) {
+      x = beta;
+      y = -gamma;
+    } else if (angle >= 225 && angle < 315) {
+      x = -gamma;
+      y = -beta;
+    } else {
+      x = -beta;
+      y = gamma;
+    }
+
+    var sensitivity = maxTilt / 24;
+    setTarget(clamp(x * sensitivity, maxTilt), clamp(y * sensitivity, maxTilt));
   }
+
   function enableOrientation() {
-    window.addEventListener('deviceorientation', handleOrientation, true);
-    if (hint) hint.textContent = 'Карточка реагирует на наклон телефона';
+    if (orientationEnabled) return;
+    orientationEnabled = true;
+    orientationBaseline = null;
+    window.addEventListener("deviceorientation", handleOrientation, true);
+
+    if (hint) hint.textContent = "Наклоняй телефон — карточка повторит движение";
     if (motionButton) motionButton.hidden = true;
   }
-  if ('DeviceOrientationEvent' in window) {
-    if (typeof DeviceOrientationEvent.requestPermission === 'function') {
-      motionButton.hidden = false;
-      motionButton.addEventListener('click', function () {
-        DeviceOrientationEvent.requestPermission().then(function (permission) {
-          if (permission === 'granted') enableOrientation();
-          else if (hint) hint.textContent = 'Доступ к датчикам не разрешён';
-        }).catch(function () {
-          if (hint) hint.textContent = 'Не удалось включить датчики. Проверь разрешения браузера.';
+
+  function resetOrientationBaseline() {
+    orientationBaseline = null;
+    resetTilt();
+  }
+
+  window.addEventListener("orientationchange", function () {
+    var angle = getScreenAngle();
+    if (angle !== lastScreenAngle) {
+      lastScreenAngle = angle;
+      resetOrientationBaseline();
+    }
+  });
+
+  if ("DeviceOrientationEvent" in window) {
+    if (typeof DeviceOrientationEvent.requestPermission === "function") {
+      if (motionButton) {
+        motionButton.hidden = false;
+        motionButton.addEventListener("click", function () {
+          DeviceOrientationEvent.requestPermission().then(function (permission) {
+            if (permission === "granted") {
+              enableOrientation();
+            } else if (hint) {
+              hint.textContent = "Разрешение на датчики не выдано";
+            }
+          }).catch(function () {
+            if (hint) hint.textContent = "Не удалось включить датчик. Проверь разрешение браузера.";
+          });
         });
-      });
-    } else enableOrientation();
-  } else if (hint) hint.textContent = 'Двигай мышью, чтобы наклонять карточку';
+      }
+    } else {
+      enableOrientation();
+    }
+  } else if (hint) {
+    hint.textContent = "На этом устройстве доступно управление мышью";
+  }
 })();

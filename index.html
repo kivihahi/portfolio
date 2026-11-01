@@ -7,7 +7,7 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Cpath d=%27M12 2.5l1.6 5.7 5.3-3-3 5.3 5.6 1.5-5.6 1.5 3 5.3-5.3-3L12 21.5l-1.6-5.7-5.3 3 3-5.3-5.6-1.5 5.6-1.5-3-5.3 5.3 3z%27 fill=%27none%27 stroke=%27%23ffffff%27 stroke-width=%271.8%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Cpath d=%27M12 2.5l1.6 5.7 5.3-3-3 5.3 5.6 1.5-5.6 1.5 3 5.3-5.3-3L12 21.5l-1.6-5.7-5.3 3 3-5.3-5.6-1.5 5.6-1.5-1.5-5.3 5.3 3z%27 fill=%27none%27 stroke=%27%23ffffff%27 stroke-width=%271.8%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27/%3E%3C/svg%3E">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&display=swap">
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="profile-card.css">
@@ -52,22 +52,62 @@
     <section id="view-links" hidden class="profile-view">
       <div class="id-card-wrap">
         <article class="id-card" id="id-card" aria-label="Персональная карточка Тимофея">
-          <div class="id-card-main">
-            <div class="id-card-kicker">PERSONAL CARD</div>
-            <div class="id-card-content">
-              <img class="id-card-avatar" src="assets/profile-cat.jpg" alt="Аватар с нарисованным котиком">
-              <div class="id-card-info">
-                <span class="id-card-label">ID CARD OF</span>
-                <h2>Тимофей</h2>
-                <div class="id-card-details"><span>15 лет</span><span>День рождения · 14 апреля</span></div>
-              </div>
+          <div class="id-card-content">
+            <img class="id-card-avatar" src="assets/profile-cat.jpg" alt="Аватар с нарисованным котиком">
+            <div class="id-card-info">
+              <h2>Тимофей</h2>
+              <div class="id-card-details"><span>15 лет</span><span>14 апреля</span></div>
             </div>
           </div>
-          <div class="id-card-side" aria-hidden="true"><span>TIMOFЕY'S CARD</span><i></i><span>ТИМОФЕЙ</span></div>
           <div class="id-card-shine" aria-hidden="true"></div>
         </article>
         <p class="tilt-hint" id="tilt-hint">Наклоняй телефон или двигай мышью</p>
         <button class="motion-button" id="motion-button" type="button" hidden>Включить наклон</button>
+      </div>
+
+      <div class="profile-sections">
+        <section class="profile-block">
+          <div class="profile-block-heading">
+            <p class="eyebrow">INTERESTS</p>
+            <h2>Сейчас увлекаюсь</h2>
+          </div>
+          <div class="interest-list">
+            <span>Linux</span>
+            <span>Android-модификации</span>
+            <span>Веб-разработка</span>
+            <span>Игры</span>
+          </div>
+        </section>
+
+        <section class="profile-block">
+          <div class="profile-block-heading">
+            <p class="eyebrow">MY SETUP</p>
+            <h2>Мой сетап</h2>
+          </div>
+          <div class="setup-list">
+            <div class="setup-row">
+              <span class="setup-label">Компьютер</span>
+              <div class="setup-values"><span>Fedora</span><span>Arch Linux</span></div>
+            </div>
+            <div class="setup-row">
+              <span class="setup-label">Мобильные системы</span>
+              <div class="setup-values"><span>Nothing OS</span><span>iOS</span></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="profile-block">
+          <div class="profile-block-heading">
+            <p class="eyebrow">IN NUMBERS</p>
+            <h2>Немного статистики</h2>
+          </div>
+          <div class="stat-grid">
+            <div class="stat-item"><b>3</b><span>проекта</span></div>
+            <div class="stat-item"><b>4</b><span>публичных репозитория</span></div>
+            <div class="stat-item"><b>∞</b><span>экспериментов</span></div>
+          </div>
+          <p class="stat-note">Эксперименты не считаю — новые идеи появляются постоянно.</p>
+        </section>
       </div>
     </section>
   </main>
