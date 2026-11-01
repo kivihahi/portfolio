@@ -10,7 +10,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Cpath d=%27M12 2.5l1.6 5.7 5.3-3-3 5.3 5.6 1.5-5.6 1.5 3 5.3-5.3-3L12 21.5l-1.6-5.7-5.3 3 3-5.3-5.6-1.5 5.6-1.5-3-5.3 5.3 3z%27 fill=%27none%27 stroke=%27%23ffffff%27 stroke-width=%271.8%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27/%3E%3C/svg%3E">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&display=swap">
 <link rel="stylesheet" href="styles.css">
-
+<link rel="stylesheet" href="profile-card.css">
 </head>
 <body>
 <div class="app">
@@ -20,9 +20,7 @@
       <a href="https://github.com/134rt5yt-svg" target="_blank" rel="noopener" aria-label="Профиль на GitHub"><svg class="f" viewBox="0 0 24 24"><path d="M12 1.500a10.500 10.500 0 0 0-3.320 20.460c.52.100.72-.23.72-.5v-1.800c-2.920.64-3.540-1.250-3.540-1.250-.48-1.220-1.170-1.540-1.170-1.540-.95-.65.070-.64.070-.64 1.050.07 1.610 1.080 1.610 1.080.94 1.600 2.460 1.140 3.060.87.1-.68.370-1.140.67-1.400-2.330-.27-4.780-1.170-4.780-5.190 0-1.150.41-2.080 1.080-2.820-.11-.27-.47-1.340.1-2.790 0 0 .88-.28 2.890 1.080a9.900 9.900 0 0 1 5.260 0c2.010-1.360 2.890-1.080 2.890-1.080.57 1.450.21 2.520.1 2.790.67.74 1.080 1.670 1.080 2.820 0 4.030-2.460 4.910-4.800 5.170.38.330.72.970.72 1.960v2.900c0 .28.190.61.730.5A10.500 10.500 0 0 0 12 1.500Z"/></svg></a>
     </div>
   </header>
-
   <main>
-
     <section id="view-home">
       <div class="intro">
         <h2 class="intro-title">Привет,<br>я <span>Kivi.</span></h2>
@@ -32,97 +30,53 @@
           <a class="text-link muted-link" href="https://github.com/134rt5yt-svg" target="_blank" rel="noopener">GitHub <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
         </div>
       </div>
-
       <div class="section-head">
         <div><p class="eyebrow"> </p><h2>Немного</h2></div>
       </div>
       <div class="rows home-projects">
-        <a class="trk" href="https://github.com/134rt5yt-svg/T3KOT" target="_blank" rel="noopener">
-          <div class="art" data-cover="t3kot"></div>
-          <div class="t"><b>T3KOT</b><span>3D-платформер от первого лица: подъём по гигантским платформам сквозь туман.</span></div>
-          <span class="go"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
-        </a>
-        <a class="trk" href="https://github.com/134rt5yt-svg/mzvpn" target="_blank" rel="noopener">
-          <div class="art" data-cover="mzvpn"></div>
-          <div class="t"><b>mzvpn</b><span>Опенсорс-проект на Rust, форк FoxyVPN для ПК.</span></div>
-          <span class="go"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
-        </a>
-        <a class="trk" href="https://t.me/kividev" target="_blank" rel="noopener">
-          <div class="art" data-cover="dev"></div>
-          <div class="t"><b>dev</b><span>Телеграм канал в котором есть инфа про проекты</span></div>
-          <span class="go"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
-        </a>
+        <a class="trk" href="https://github.com/134rt5yt-svg/T3KOT" target="_blank" rel="noopener"><div class="art" data-cover="t3kot"></div><div class="t"><b>T3KOT</b><span>3D-платформер от первого лица: подъём по гигантским платформам сквозь туман.</span></div><span class="go"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></span></a>
+        <a class="trk" href="https://github.com/134rt5yt-svg/mzvpn" target="_blank" rel="noopener"><div class="art" data-cover="mzvpn"></div><div class="t"><b>mzvpn</b><span>Опенсорс-проект на Rust, форк FoxyVPN для ПК.</span></div><span class="go"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></span></a>
+        <a class="trk" href="https://t.me/kividev" target="_blank" rel="noopener"><div class="art" data-cover="dev"></div><div class="t"><b>dev</b><span>Телеграм канал в котором есть инфа про проекты</span></div><span class="go"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></span></a>
       </div>
       <a class="all-projects" href="#projects">Все проекты на GitHub <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M12 5l7 7-7 7"/></svg></a>
-
-      <div class="stack">
-        <h2>С чем работаю</h2>
-        <div class="stack-list"><span>GDScript</span><i>·</i><span>Rust</span><i>·</i><span>HTML</span></div>
-      </div>
+      <div class="stack"><h2>С чем работаю</h2><div class="stack-list"><span>GDScript</span><i>·</i><span>Rust</span><i>·</i><span>HTML</span></div></div>
     </section>
-
     <section id="view-projects" hidden>
       <p class="sub">Всё, что лежит у меня на GitHub</p>
       <div class="grid">
-        <a class="card" href="https://github.com/134rt5yt-svg/T3KOT" target="_blank" rel="noopener">
-          <div class="art" data-cover="t3kot"></div>
-          <b>T3KOT</b><span>3D-платформер от первого лица: подъём по гигантским платформам сквозь туман.</span>
-        </a>
-        <a class="card" href="https://github.com/134rt5yt-svg/T3KOTsite" target="_blank" rel="noopener">
-          <div class="art" data-cover="t3kotsite"></div>
-          <b>T3KOTsite</b><span>Сайт к игре · HTML</span>
-        </a>
-        <a class="card" href="https://github.com/134rt5yt-svg/mzvpn" target="_blank" rel="noopener">
-          <div class="art" data-cover="mzvpn"></div>
-          <b>mzvpn</b><span>Опенсорс-проект на Rust, форк FoxyVPN для ПК.</span>
-        </a>
+        <a class="card" href="https://github.com/134rt5yt-svg/T3KOT" target="_blank" rel="noopener"><div class="art" data-cover="t3kot"></div><b>T3KOT</b><span>3D-платформер от первого лица: подъём по гигантским платформам сквозь туман.</span></a>
+        <a class="card" href="https://github.com/134rt5yt-svg/T3KOTsite" target="_blank" rel="noopener"><div class="art" data-cover="t3kotsite"></div><b>T3KOTsite</b><span>Сайт к игре · HTML</span></a>
+        <a class="card" href="https://github.com/134rt5yt-svg/mzvpn" target="_blank" rel="noopener"><div class="art" data-cover="mzvpn"></div><b>mzvpn</b><span>Опенсорс-проект на Rust, форк FoxyVPN для ПК.</span></a>
       </div>
     </section>
-
-
-    <section id="view-links" hidden>
-      <a class="prof" href="https://github.com/134rt5yt-svg" target="_blank" rel="noopener">
-        <div class="mini-av">K</div>
-        <div style="min-width:0"><b>134rt5yt-svg</b><span>Профиль на GitHub</span></div>
-      </a>
-      <h2 class="st" style="margin-top:34px">Репозитории</h2>
-      <div class="rows" style="margin-top:0">
-        <a class="trk" href="https://github.com/134rt5yt-svg/T3KOT" target="_blank" rel="noopener">
-          <div class="art" data-cover="t3kot"></div>
-          <div class="t"><b>T3KOT</b><span>Игра · GDScript</span></div>
-          <span class="go"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
-        </a>
-        <a class="trk" href="https://github.com/134rt5yt-svg/T3KOTsite" target="_blank" rel="noopener">
-          <div class="art" data-cover="t3kotsite"></div>
-          <div class="t"><b>T3KOTsite</b><span>HTML</span></div>
-          <span class="go"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
-        </a>
-        <a class="trk" href="https://github.com/134rt5yt-svg/mzvpn" target="_blank" rel="noopener">
-          <div class="art" data-cover="mzvpn"></div>
-          <div class="t"><b>mzvpn</b><span>Rust · open source</span></div>
-          <span class="go"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
-        </a>
+    <section id="view-links" hidden class="profile-view">
+      <div class="id-card-wrap">
+        <article class="id-card" id="id-card" aria-label="Персональная карточка Тимофея">
+          <div class="id-card-main">
+            <div class="id-card-kicker">PERSONAL CARD</div>
+            <div class="id-card-content">
+              <img class="id-card-avatar" src="assets/profile-cat.jpg" alt="Аватар с нарисованным котиком">
+              <div class="id-card-info">
+                <span class="id-card-label">ID CARD OF</span>
+                <h2>Тимофей</h2>
+                <div class="id-card-details"><span>15 лет</span><span>День рождения · 14 апреля</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="id-card-side" aria-hidden="true"><span>TIMOFЕY'S CARD</span><i></i><span>ТИМОФЕЙ</span></div>
+          <div class="id-card-shine" aria-hidden="true"></div>
+        </article>
+        <p class="tilt-hint" id="tilt-hint">Наклоняй телефон или двигай мышью</p>
+        <button class="motion-button" id="motion-button" type="button" hidden>Включить наклон</button>
       </div>
     </section>
   </main>
 </div>
-
-<div class="dock">
-  <div class="dock-in">
-    <nav class="nav" id="nav" aria-label="Разделы">
-      <a href="#home" data-v="home" aria-label="Главная" title="Главная">
-        <svg viewBox="0 0 24 24"><path class="fl" d="M12 2.500l1.600 5.700 5.300-3-3 5.300 5.600 1.500-5.600 1.500 3 5.300-5.300-3L12 21.500l-1.600-5.700-5.300 3 3-5.300L3.500 12.800l5.600-1.500-3-5.300 5.300 3z"/></svg>
-      </a>
-      <a href="#projects" data-v="projects" aria-label="Проекты" title="Проекты">
-        <svg viewBox="0 0 24 24"><rect class="fl" x="3.500" y="3.500" width="7.500" height="7.500" rx="2.200"/><rect class="fl" x="13" y="3.500" width="7.500" height="7.500" rx="2.200"/><rect class="fl" x="3.500" y="13" width="7.500" height="7.500" rx="2.200"/><rect class="fl" x="13" y="13" width="7.500" height="7.500" rx="2.200"/></svg>
-      </a>
-<a href="#links" data-v="links" aria-label="GitHub" title="GitHub">
-        <svg class="g" viewBox="0 0 24 24"><path d="M12 1.500a10.500 10.500 0 0 0-3.320 20.460c.52.100.72-.23.72-.5v-1.800c-2.920.64-3.540-1.250-3.540-1.250-.48-1.220-1.170-1.540-1.170-1.540-.95-.65.070-.64.070-.64 1.050.07 1.610 1.080 1.610 1.080.94 1.600 2.460 1.140 3.060.87.1-.68.370-1.140.67-1.400-2.330-.27-4.780-1.170-4.780-5.190 0-1.150.41-2.080 1.080-2.820-.11-.27-.47-1.340.1-2.790 0 0 .88-.28 2.890 1.080a9.900 9.900 0 0 1 5.260 0c2.010-1.360 2.890-1.080 2.890-1.080.57 1.450.21 2.520.1 2.790.67.74 1.080 1.670 1.080 2.820 0 4.030-2.460 4.910-4.800 5.170.38.330.72.970.72 1.960v2.900c0 .28.190.61.730.5A10.500 10.500 0 0 0 12 1.500Z"/></svg>
-      </a>
-    </nav>
-  </div>
-</div>
-
+<div class="dock"><div class="dock-in"><nav class="nav" id="nav" aria-label="Разделы">
+<a href="#home" data-v="home" aria-label="Главная" title="Главная"><svg viewBox="0 0 24 24"><path class="fl" d="M12 2.500l1.600 5.700 5.300-3-3 5.300 5.600 1.500-5.600 1.500 3 5.300-5.300-3L12 21.500l-1.600-5.700-5.300 3 3-5.300L3.500 12.800l5.600-1.500-3-5.300 5.300 3z"/></svg></a>
+<a href="#projects" data-v="projects" aria-label="Проекты" title="Проекты"><svg viewBox="0 0 24 24"><rect class="fl" x="3.500" y="3.500" width="7.500" height="7.500" rx="2.200"/><rect class="fl" x="13" y="3.500" width="7.500" height="7.500" rx="2.200"/><rect class="fl" x="3.500" y="13" width="7.500" height="7.500" rx="2.200"/><rect class="fl" x="13" y="13" width="7.500" height="7.500" rx="2.200"/></svg></a>
+<a href="#links" data-v="links" aria-label="Профиль" title="Профиль"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M4.5 20c.7-4 3.2-6 7.5-6s6.8 2 7.5 6"/></svg></a>
+</nav></div></div>
 <script src="script.js" defer></script>
 </body>
 </html>
