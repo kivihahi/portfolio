@@ -105,6 +105,30 @@
     });
   }
 
+  // Фоновая надпись за карточкой: бесконечная лента «ТимофейТимофей…»,
+  // едет по диагонали из правого верхнего угла в левый нижний.
+  // Каждая строка = две одинаковые половины; анимация сдвигает ленту ровно на половину,
+  // поэтому стык не виден и текст не прерывается.
+  var nameFlow = document.getElementById("card-name-flow");
+  if (nameFlow) {
+    var unit = "ТимофейТимофей";
+    var half = unit.repeat(5);
+    var rows = 14;
+    var frag = document.createDocumentFragment();
+    for (var r = 0; r < rows; r++) {
+      var row = document.createElement("div");
+      row.className = "card-name-row";
+      for (var g = 0; g < 2; g++) {
+        var group = document.createElement("span");
+        group.className = "card-name-group";
+        group.textContent = half;
+        row.appendChild(group);
+      }
+      frag.appendChild(row);
+    }
+    nameFlow.appendChild(frag);
+  }
+
   var card = document.getElementById("id-card");
   var hint = document.getElementById("tilt-hint");
   var motionButton = document.getElementById("motion-button");
