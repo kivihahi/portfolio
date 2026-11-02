@@ -107,26 +107,67 @@
 
   // Фоновая надпись за карточкой: бесконечная лента «ТимофейТимофей…»,
   // едет по диагонали из правого верхнего угла в левый нижний.
-  // Каждая строка = две одинаковые половины; анимация сдвигает ленту ровно на половину,
-  // поэтому стык не виден и текст не прерывается.
+  // Строки собираются под реальный размер карточки (ничего лишнего не рисуем),
+  // а анимация сдвигает ленту ровно на один период текста — стык не виден.
   var nameFlow = document.getElementById("card-name-flow");
   if (nameFlow) {
-    var unit = "ТимофейТимофей";
-    var half = unit.repeat(5);
-    var rows = 14;
-    var frag = document.createDocumentFragment();
-    for (var r = 0; r < rows; r++) {
-      var row = document.createElement("div");
-      row.className = "card-name-row";
-      for (var g = 0; g < 2; g++) {
+    var nameField = nameFlow.parentNode;
+    var nameBackdrop = nameField.parentNode;
+    var nameUnit = "ТимофейТимофей";
+    var nameKey = "";
+
+    var buildNameFlow = function () {
+      var w = nameBackdrop.clientWidth;
+      var h = nameBackdrop.clientHeight;
+      if (!w || !h) return; // вкладка профиля ещё скрыта
+
+      var angle = Math.abs(parseFloat(getComputedStyle(nameBackdrop).getPropertyValue("--flow-angle"))) * Math.PI / 180;
+      var fontSize = parseFloat(getComputedStyle(nameFlow).fontSize);
+
+      var probe = document.createElement("span");
+      probe.className = "card-name-group";
+      probe.style.cssText = "position:absolute;visibility:hidden";
+      probe.textContent = nameUnit.repeat(20);
+      nameFlow.appendChild(probe);
+      var unitW = probe.offsetWidth / 20;
+      var rowH = probe.offsetHeight;
+      nameFlow.removeChild(probe);
+      if (!unitW || !rowH) return;
+
+      var along = w * Math.cos(angle) + h * Math.sin(angle);   // длина вдоль строки
+      var across = w * Math.sin(angle) + h * Math.cos(angle);  // высота поперёк строк
+      var rows = Math.ceil(across / rowH) + 1;
+      var units = Math.ceil((along + fontSize * 3.5) / unitW) + 1;
+
+      nameField.style.width = Math.ceil(along) + "px";
+      nameFlow.style.setProperty("--flow-shift", (-unitW).toFixed(3) + "px");
+      nameFlow.style.animationDuration = (unitW / 120).toFixed(2) + "s"; // ~120 px/с
+
+      var key = rows + "|" + units;
+      if (key === nameKey) return;
+      nameKey = key;
+
+      var text = nameUnit.repeat(units);
+      var frag = document.createDocumentFragment();
+      for (var r = 0; r < rows; r++) {
+        var row = document.createElement("div");
+        row.className = "card-name-row";
         var group = document.createElement("span");
         group.className = "card-name-group";
-        group.textContent = half;
+        group.textContent = text;
         row.appendChild(group);
+        frag.appendChild(row);
       }
-      frag.appendChild(row);
+      nameFlow.textContent = "";
+      nameFlow.appendChild(frag);
+    };
+
+    if (window.ResizeObserver) {
+      new ResizeObserver(buildNameFlow).observe(nameBackdrop);
+    } else {
+      window.addEventListener("resize", buildNameFlow);
     }
-    nameFlow.appendChild(frag);
+    buildNameFlow();
   }
 
   var card = document.getElementById("id-card");
