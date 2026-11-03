@@ -1,18 +1,4 @@
 (function () {
-  function cover(id) {
-    var covers = {
-      t3kot: ["assets/cover-t3kot.jpg", "T3KOT"],
-      mzvpn: ["assets/cover-mzvpn.jpg", "mzvpn"],
-      t3kotsite: ["assets/cover-t3kotsite.jpg", "T3KOTsite"]
-    };
-    var item = covers[id] || covers.t3kot;
-    return "<img src='" + item[0] + "' alt='Обложка проекта " + item[1] + "' loading='lazy' width='200' height='200'>";
-  }
-
-  document.querySelectorAll("[data-cover]").forEach(function (el) {
-    el.innerHTML = cover(el.getAttribute("data-cover"));
-  });
-
   var titles = { home: "Портфолио", projects: "Проекты", links: "Профиль" };
   var views = Object.keys(titles);
 
@@ -194,6 +180,33 @@
     if (event.pointerType !== "touch") resetTilt();
   });
 
+  // Касание: карточка наклоняется туда, где палец. Разрешений не нужно.
+  var touching = false;
+
+  function tiltFromTouch(event) {
+    var touch = event.touches && event.touches[0];
+    if (!touch) return;
+    var rect = card.getBoundingClientRect();
+    if (!rect.width || !rect.height) return;
+    var px = (touch.clientX - rect.left) / rect.width;
+    var py = (touch.clientY - rect.top) / rect.height;
+    setTarget((0.5 - py) * maxTilt * 1.5, (px - 0.5) * maxTilt * 1.5);
+  }
+
+  function endTouch() {
+    if (!touching) return;
+    touching = false;
+    resetTilt();
+  }
+
+  card.addEventListener("touchstart", function (event) {
+    touching = true;
+    tiltFromTouch(event);
+  }, { passive: true });
+  card.addEventListener("touchmove", tiltFromTouch, { passive: true });
+  card.addEventListener("touchend", endTouch, { passive: true });
+  card.addEventListener("touchcancel", endTouch, { passive: true });
+
   function applyDeadZone(value) {
     var deadZone = 1.25;
     if (Math.abs(value) <= deadZone) return 0;
@@ -202,6 +215,8 @@
 
   function handleOrientation(event) {
     if (event.beta == null || event.gamma == null) return;
+    confirmGyro();
+    if (touching) return;
 
     if (!orientationBaseline) {
       orientationBaseline = { beta: event.beta, gamma: event.gamma };
@@ -232,13 +247,20 @@
     setTarget(clamp(x * sensitivity, maxTilt), clamp(y * sensitivity, maxTilt));
   }
 
+  var gyroConfirmed = false;
+
   function enableOrientation() {
     if (orientationEnabled) return;
     orientationEnabled = true;
     orientationBaseline = null;
     window.addEventListener("deviceorientation", handleOrientation, true);
+  }
 
-    if (hint) hint.textContent = "Наклоняй телефон — карточка повторит движение";
+  // Первое настоящее событие датчика: гироскоп работает, кнопка не нужна.
+  function confirmGyro() {
+    if (gyroConfirmed) return;
+    gyroConfirmed = true;
+    if (hint) hint.textContent = "Води пальцем по карточке или наклоняй телефон";
     if (motionButton) motionButton.hidden = true;
   }
 
@@ -259,26 +281,37 @@
     ("ontouchstart" in window) ||
     (window.matchMedia && window.matchMedia("(pointer: coarse)").matches);
 
-  if ("DeviceOrientationEvent" in window && hasTouchInput) {
-    if (typeof DeviceOrientationEvent.requestPermission === "function") {
-      if (motionButton) {
-        motionButton.hidden = false;
-        motionButton.addEventListener("click", function () {
-          DeviceOrientationEvent.requestPermission().then(function (permission) {
-            if (permission === "granted") {
-              enableOrientation();
-            } else if (hint) {
-              hint.textContent = "Разрешение на датчики не выдано";
-            }
-          }).catch(function () {
-            if (hint) hint.textContent = "Не удалось включить датчик. Проверь разрешение браузера.";
-          });
-        });
-      }
-    } else {
+  if (hasTouchInput) {
+    // Наклон от касания работает сразу, без разрешений.
+    if (hint) hint.textContent = "Води пальцем по карточке";
+
+    if ("DeviceOrientationEvent" in window) {
+      // Слушаем датчик сразу: на Android и в Chrome разрешение не нужно.
       enableOrientation();
+
+      // Только iPhone/iPad ждут явного разрешения. Если за 1,2 с данных нет,
+      // показываем необязательную кнопку.
+      if (typeof DeviceOrientationEvent.requestPermission === "function" && motionButton) {
+        window.setTimeout(function () {
+          if (gyroConfirmed) return;
+          motionButton.textContent = "Включить гироскоп (необязательно)";
+          motionButton.hidden = false;
+          motionButton.addEventListener("click", function () {
+            DeviceOrientationEvent.requestPermission().then(function (permission) {
+              if (permission === "granted") {
+                orientationBaseline = null;
+                motionButton.hidden = true;
+              } else if (hint) {
+                hint.textContent = "Гироскоп не включён, но карточка двигается от касания";
+              }
+            }).catch(function () {
+              if (hint) hint.textContent = "Гироскоп не включился, но карточка двигается от касания";
+            });
+          });
+        }, 1200);
+      }
     }
   } else if (hint) {
-    hint.textContent = "На этом устройстве доступно управление мышью";
+    hint.textContent = "Двигай мышью по карточке";
   }
 })();
