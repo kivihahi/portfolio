@@ -89,6 +89,14 @@
     }
   });
 
+  // Реакция на пасхалку с дождём (событие шлёт код ниже в этом файле)
+  document.addEventListener("easter-rain", function (event) {
+    jump();
+    say(event.detail && event.detail.reduced
+      ? "Дождя не будет: у тебя включено уменьшение анимации."
+      : "Дождь из котиков!");
+  });
+
   // Один раз за сессию тихо подсказываем, что питомца можно потрогать.
   var greeted = false;
   try { greeted = sessionStorage.getItem("pet-greeted") === "1"; } catch (e) {}
@@ -99,4 +107,88 @@
       try { sessionStorage.setItem("pet-greeted", "1"); } catch (e) {}
     }, 3500);
   }
+})();
+
+// Пасхалка: дождь из аватарок.
+// Запуск: три быстрых касания по аватарке на карточке профиля
+// или Konami-код на клавиатуре (↑ ↑ ↓ ↓ ← → ← → B A).
+(function () {
+  var reduced = window.matchMedia &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var avatar = document.querySelector(".id-card-avatar");
+  var src = (avatar && avatar.getAttribute("src")) || "assets/profile-cat.webp";
+  var busy = false;
+
+  function rand(min, max) {
+    return min + Math.random() * (max - min);
+  }
+
+  function startRain() {
+    // питомец отреагирует в любом случае (см. выше)
+    document.dispatchEvent(new CustomEvent("easter-rain", { detail: { reduced: !!reduced } }));
+    if (reduced || busy) return;
+    busy = true;
+
+    var layer = document.createElement("div");
+    layer.className = "rain";
+    layer.setAttribute("aria-hidden", "true");
+
+    var count = window.innerWidth < 600 ? 22 : 36;
+    var longest = 0;
+    for (var i = 0; i < count; i++) {
+      var img = new Image();
+      img.src = src;
+      img.alt = "";
+      img.decoding = "async";
+      img.draggable = false;
+      var dur = rand(2.4, 4.2);
+      var delay = rand(0, 1.8);
+      longest = Math.max(longest, dur + delay);
+      img.style.setProperty("--x", rand(-2, 94).toFixed(1) + "%");
+      img.style.setProperty("--size", Math.round(rand(34, 82)) + "px");
+      img.style.setProperty("--dur", dur.toFixed(2) + "s");
+      img.style.setProperty("--delay", delay.toFixed(2) + "s");
+      img.style.setProperty("--spin", Math.round(rand(-70, 70)) + "deg");
+      img.style.setProperty("--sway", Math.round(rand(-36, 36)) + "px");
+      layer.appendChild(img);
+    }
+
+    document.body.appendChild(layer);
+    window.setTimeout(function () {
+      if (layer.parentNode) layer.parentNode.removeChild(layer);
+      busy = false;
+    }, Math.ceil(longest * 1000) + 200);
+  }
+
+  // тройной тап (клик) по аватарке: три касания в пределах 1,6 с
+  var avatarTaps = [];
+  if (avatar) {
+    avatar.addEventListener("click", function () {
+      var now = Date.now();
+      avatarTaps = avatarTaps.filter(function (t) { return now - t < 1600; });
+      avatarTaps.push(now);
+      if (avatarTaps.length >= 3 &&
+          avatarTaps[avatarTaps.length - 1] - avatarTaps[avatarTaps.length - 3] < 1600) {
+        avatarTaps = [];
+        startRain();
+      }
+    });
+  }
+
+  // Konami-код по физическим клавишам, чтобы работало и в русской раскладке
+  var code = ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight",
+              "ArrowLeft", "ArrowRight", "KeyB", "KeyA"];
+  var progress = 0;
+  document.addEventListener("keydown", function (event) {
+    if (event.ctrlKey || event.metaKey || event.altKey) return;
+    if (event.code === code[progress]) {
+      progress++;
+      if (progress === code.length) {
+        progress = 0;
+        startRain();
+      }
+    } else {
+      progress = event.code === code[0] ? 1 : 0;
+    }
+  });
 })();

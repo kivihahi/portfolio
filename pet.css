@@ -44,3 +44,14 @@
 .pet.is-jumping .pet-svg,.pet.is-jumping .pet-shadow{animation:none}
 .pet-bubble,.toast{transition:none}
 }
+
+/* Пасхалка: дождь из аватарок (тройной тап по аватарке или Konami-код) */
+.id-card-avatar{-webkit-user-select:none;user-select:none;-webkit-user-drag:none;-webkit-touch-callout:none}
+.rain{position:fixed;z-index:95;inset:0;overflow:hidden;pointer-events:none}
+.rain img{position:absolute;top:0;left:var(--x);width:var(--size);height:var(--size);border-radius:50%;object-fit:cover;background:#f7f5f5;box-shadow:0 8px 20px rgba(0,0,0,.35);animation:rain-fall var(--dur) var(--delay) cubic-bezier(.45,.1,.75,1) both;will-change:transform,opacity}
+@keyframes rain-fall{
+0%{transform:translate3d(0,-20vh,0) rotate(0);opacity:0}
+6%{opacity:1}
+92%{opacity:1}
+100%{transform:translate3d(var(--sway),115vh,0) rotate(var(--spin));opacity:0}}
+@media(prefers-reduced-motion:reduce){.rain{display:none}}
