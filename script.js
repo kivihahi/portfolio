@@ -1,5 +1,6 @@
 (function () {
   var titles = { home: "Портфолио", projects: "Проекты", links: "Профиль" };
+  var pageTitles = { home: "Kivi · Тимофей", projects: "Проекты — Kivi", links: "Профиль — Kivi" };
   var views = Object.keys(titles);
 
   function route() {
@@ -11,6 +12,7 @@
     });
 
     document.getElementById("ttl-text").textContent = titles[hash];
+    document.title = pageTitles[hash];
     document.querySelectorAll("#nav a").forEach(function (link) {
       if (link.getAttribute("data-v") === hash) {
         link.setAttribute("aria-current", "page");
@@ -89,6 +91,119 @@
     }
     buildNameFlow();
   }
+
+  // ---------- Статистика: число проектов из разметки, репозитории с GitHub ----------
+  function plural(n, one, few, many) {
+    var m10 = n % 10, m100 = n % 100;
+    if (m10 === 1 && m100 !== 11) return one;
+    if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return few;
+    return many;
+  }
+
+  function setStat(id, n, one, few, many) {
+    var num = document.getElementById("stat-" + id);
+    var label = document.getElementById("stat-" + id + "-label");
+    if (!num || !label || typeof n !== "number" || !isFinite(n) || n < 0) return;
+    num.textContent = String(n);
+    label.textContent = plural(n, one, few, many);
+  }
+
+  setStat("projects", document.querySelectorAll("#view-projects .card").length,
+    "проект", "проекта", "проектов");
+
+  (function loadRepoCount() {
+    var link = document.querySelector('.hdr .ic a[href*="github.com/"]');
+    if (!link || !window.fetch) return;
+    var user = "";
+    try { user = new URL(link.href).pathname.split("/")[1]; } catch (e) {}
+    if (!user) return;
+
+    var cacheKey = "gh-public-repos:" + user;
+    var showRepos = function (n) {
+      setStat("repos", n, "публичный репозиторий", "публичных репозитория", "публичных репозиториев");
+    };
+
+    try {
+      var cached = JSON.parse(localStorage.getItem(cacheKey) || "null");
+      if (cached && typeof cached.n === "number") {
+        showRepos(cached.n);
+        if (Date.now() - cached.t < 3600000) return; // свежее, снова не спрашиваем
+      }
+    } catch (e) {}
+
+    var controller = window.AbortController ? new AbortController() : null;
+    var timer = controller ? window.setTimeout(function () { controller.abort(); }, 6000) : 0;
+    fetch("https://api.github.com/users/" + encodeURIComponent(user), {
+      headers: { Accept: "application/vnd.github+json" },
+      signal: controller ? controller.signal : undefined
+    }).then(function (response) {
+      if (!response.ok) throw new Error("http " + response.status);
+      return response.json();
+    }).then(function (data) {
+      if (!data || typeof data.public_repos !== "number") return;
+      showRepos(data.public_repos);
+      try {
+        localStorage.setItem(cacheKey, JSON.stringify({ n: data.public_repos, t: Date.now() }));
+      } catch (e) {}
+    }).catch(function () {
+      // нет сети или лимит GitHub: остаются цифры из разметки
+    }).then(function () {
+      if (timer) window.clearTimeout(timer);
+    });
+  })();
+
+  // ---------- Копирование по тапу ----------
+  var toast = document.getElementById("toast");
+  var toastTimer = 0;
+
+  function showToast(text) {
+    if (!toast) return;
+    toast.textContent = text;
+    toast.classList.add("is-on");
+    window.clearTimeout(toastTimer);
+    toastTimer = window.setTimeout(function () { toast.classList.remove("is-on"); }, 1800);
+  }
+
+  function copyText(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+      return navigator.clipboard.writeText(text);
+    }
+    return new Promise(function (resolve, reject) {
+      var area = document.createElement("textarea");
+      area.value = text;
+      area.setAttribute("readonly", "");
+      area.style.cssText = "position:fixed;top:0;left:0;opacity:0";
+      document.body.appendChild(area);
+      area.select();
+      var ok = false;
+      try { ok = document.execCommand("copy"); } catch (e) {}
+      document.body.removeChild(area);
+      ok ? resolve() : reject(new Error("copy failed"));
+    });
+  }
+
+  function handleCopy(el) {
+    var text = el.getAttribute("data-copy");
+    if (!text) return;
+    copyText(text).then(function () {
+      showToast("Скопировано: " + text);
+    }, function () {
+      showToast("Не получилось скопировать");
+    });
+  }
+
+  document.addEventListener("click", function (event) {
+    var el = event.target.closest && event.target.closest("[data-copy]");
+    if (el) handleCopy(el);
+  });
+  document.addEventListener("keydown", function (event) {
+    if (event.key !== "Enter" && event.key !== " ") return;
+    var el = event.target.closest && event.target.closest("[data-copy]");
+    if (el) {
+      event.preventDefault();
+      handleCopy(el);
+    }
+  });
 
   var card = document.getElementById("id-card");
   var hint = document.getElementById("tilt-hint");
