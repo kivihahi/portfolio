@@ -16,7 +16,6 @@ html[data-theme="light"]{
   --p1:#e9e5df;
   --y1:#e04a24;
   --y2:#d63c1b;
-  --y3:#b02c10;
 }
 
 /* шапка и иконки */
@@ -72,7 +71,7 @@ html[data-theme="light"] .stat-note{color:#6a6a6a}
 
 /* питомец и подсказка */
 html[data-theme="light"] .pet-shadow{background:rgba(20,20,20,.16)}
+html[data-theme="light"] .pet-svg{filter:drop-shadow(1px 0 0 #173530) drop-shadow(-1px 0 0 #173530) drop-shadow(0 1px 0 #173530) drop-shadow(0 -1px 0 #173530)}
 html[data-theme="light"] .pet-bubble{background:#1b1b1b;color:#f4f4f4;box-shadow:0 10px 28px rgba(20,20,20,.28)}
 html[data-theme="light"] .pet-bubble::after{background:#1b1b1b}
 html[data-theme="light"] .toast{border-color:#d8d2ca;background:#ffffff;color:#151515;box-shadow:0 10px 28px rgba(20,20,20,.16)}
-html[data-theme="light"] .pet-tail path{stroke:#cdc6c6}

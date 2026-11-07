@@ -3,9 +3,6 @@
   --p1: #1c1c1c;
   --fg: #ffffff;
   --gray: #8c8c8c;
-  --y1: #ff6a2d;
-  --y2: #ff4b1f;
-  --y3: #c92e0a;
   --font: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   color-scheme: dark;
 }
@@ -54,7 +51,7 @@ svg { display: block; }
 .nav a svg .fl { fill: none; }
 .nav a[aria-current="page"] svg .fl { fill: currentColor; }
 
-:root { --y1: #ff633d; --y2: #ff5936; --y3: #c9361b; }
+:root { --y1: #ff633d; --y2: #ff5936; }
 .intro { padding: 25px 0 34px; border-bottom: 1px solid #242424; }
 .eyebrow { margin: 0; color: #878787; font-size: 11px; line-height: 1.5; }
 .intro-title { margin: 25px 0 17px; }
