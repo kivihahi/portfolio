@@ -14,7 +14,6 @@ html[data-theme="light"]{
   --fg:#141414;
   --gray:#6a6a6a;
   --p1:#e9e5df;
-  --p2:#dcd7d0;
   --y1:#e04a24;
   --y2:#d63c1b;
   --y3:#b02c10;
@@ -30,7 +29,6 @@ html[data-theme="light"] .nav a:hover{color:#000}
 html[data-theme="light"] .eyebrow{color:#6f6a64}
 html[data-theme="light"] .intro-copy{color:#4a4a4a}
 html[data-theme="light"] .muted-link{color:#555}
-html[data-theme="light"] .section-count{color:#6a6a6a}
 html[data-theme="light"] .all-projects{color:#1a1a1a}
 html[data-theme="light"] .stack-list{color:#444}
 html[data-theme="light"] .stack-list span{background:#ece8e3}
@@ -41,7 +39,6 @@ html[data-theme="light"] .home-projects .trk .art{background:#e6e1db}
 html[data-theme="light"] .home-projects .trk .t span{color:#666}
 html[data-theme="light"] .home-projects .trk .go svg{stroke:#777}
 html[data-theme="light"] .home-projects .trk:hover .go svg{stroke:var(--y2)}
-html[data-theme="light"] #view-links .trk:hover{background:#f1ede8}
 
 /* карточки проектов */
 html[data-theme="light"] .card .art{background:#e6e1db}
