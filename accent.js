@@ -16,21 +16,6 @@
     else root.removeAttribute("data-accent");
   }
 
-  function rings(cx, cy) {
-    var far = Math.hypot(Math.max(cx, innerWidth - cx), Math.max(cy, innerHeight - cy));
-    for (var i = 0; i < 3; i++) {
-      var r = document.createElement("div");
-      r.className = "accent-ring";
-      r.setAttribute("aria-hidden", "true");
-      r.style.setProperty("--cx", cx + "px");
-      r.style.setProperty("--cy", cy + "px");
-      r.style.setProperty("--s", (far * 2 / 60).toFixed(2));
-      r.style.setProperty("--d", (i * 0.12) + "s");
-      document.body.appendChild(r);
-      (function (el) { setTimeout(function () { el.remove(); }, 1300); })(r);
-    }
-  }
-
   word.addEventListener("click", function () {
     var next = order[(order.indexOf(current()) + 1) % order.length];
     var box = word.getBoundingClientRect();
@@ -41,16 +26,27 @@
     document.dispatchEvent(new CustomEvent("accent-change", { detail: { accent: next || "orange" } }));
 
     if (reduced) { set(next); return; }
-    rings(cx, cy);
     if (!document.startViewTransition) { set(next); return; }
 
     root.classList.add("accent-wave");
     var vt = document.startViewTransition(function () { set(next); });
     vt.ready.then(function () {
       var far = Math.hypot(Math.max(cx, innerWidth - cx), Math.max(cy, innerHeight - cy));
+      root.style.setProperty("--wx", cx + "px");
+      root.style.setProperty("--wy", cy + "px");
+      var front = document.createElement("div");
+      front.className = "accent-wavefront";
+      front.setAttribute("aria-hidden", "true");
+      front.style.setProperty("--wx", cx + "px");
+      front.style.setProperty("--wy", cy + "px");
+      document.body.appendChild(front);
+      front.animate(
+        { "--wave-r": ["0px", (far + 160) + "px"] },
+        { duration: 1100, easing: "cubic-bezier(.35,.1,.25,1)", fill: "both" }
+      ).finished.then(function () { front.remove(); }, function () { front.remove(); });
       root.animate(
-        { clipPath: ["circle(0px at " + cx + "px " + cy + "px)", "circle(" + far + "px at " + cx + "px " + cy + "px)"] },
-        { duration: 800, easing: "cubic-bezier(.2,.7,.3,1)", pseudoElement: "::view-transition-new(root)" }
+        { "--wave-r": ["0px", (far + 160) + "px"] },
+        { duration: 1100, easing: "cubic-bezier(.35,.1,.25,1)", pseudoElement: "::view-transition-new(root)" }
       );
     }).catch(function () {});
     vt.finished.finally(function () { root.classList.remove("accent-wave"); });

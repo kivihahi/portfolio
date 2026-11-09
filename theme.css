@@ -86,8 +86,17 @@ html[data-theme="light"][data-accent="pink"]{--y1:#d92a80;--y2:#c9196f}
 html.accent-wave::view-transition-old(root),
 html.accent-wave::view-transition-new(root){animation:none;mix-blend-mode:normal}
 html.accent-wave::view-transition-new(root){z-index:2}
-.accent-ring{position:fixed;z-index:96;left:0;top:0;width:60px;height:60px;margin:-30px 0 0 -30px;border:2px solid var(--y2);border-radius:50%;pointer-events:none;opacity:.9;animation:accent-ring .9s cubic-bezier(.2,.7,.3,1) both;animation-delay:var(--d,0s)}
-@keyframes accent-ring{from{transform:translate(var(--cx),var(--cy)) scale(.2);opacity:.9}to{transform:translate(var(--cx),var(--cy)) scale(var(--s));opacity:0}}
+@property --wave-r{syntax:"<length>";inherits:false;initial-value:0px}
+html.accent-wave::view-transition-new(root){
+  -webkit-mask-image:radial-gradient(circle at var(--wx) var(--wy),#000 calc(var(--wave-r) - 140px),rgba(0,0,0,.55) calc(var(--wave-r) - 60px),transparent var(--wave-r));
+  mask-image:radial-gradient(circle at var(--wx) var(--wy),#000 calc(var(--wave-r) - 140px),rgba(0,0,0,.55) calc(var(--wave-r) - 60px),transparent var(--wave-r))}
+
+.accent-wavefront{position:fixed;inset:0;z-index:96;pointer-events:none;
+  background:radial-gradient(circle at var(--wx) var(--wy),transparent calc(var(--wave-r) - 200px),color-mix(in srgb,var(--y2) 22%,transparent) calc(var(--wave-r) - 70px),color-mix(in srgb,var(--y2) 70%,transparent) calc(var(--wave-r) - 6px),transparent var(--wave-r));
+  -webkit-backdrop-filter:blur(1.5px) saturate(1.4);backdrop-filter:blur(1.5px) saturate(1.4);
+  -webkit-mask-image:radial-gradient(circle at var(--wx) var(--wy),transparent calc(var(--wave-r) - 200px),#000 calc(var(--wave-r) - 70px),#000 calc(var(--wave-r) - 6px),transparent var(--wave-r));
+  mask-image:radial-gradient(circle at var(--wx) var(--wy),transparent calc(var(--wave-r) - 200px),#000 calc(var(--wave-r) - 70px),#000 calc(var(--wave-r) - 6px),transparent var(--wave-r))}
+@media(prefers-reduced-motion:reduce){.accent-wavefront{display:none}}
 
 /* Свой курсор: только мышь */
 html.has-cursor,html.has-cursor *{cursor:none!important}
@@ -97,4 +106,4 @@ html.has-cursor,html.has-cursor *{cursor:none!important}
 html.has-cursor.cur-on .cur-dot,html.has-cursor.cur-on .cur-ring{opacity:1}
 .cur-ring.is-link{width:54px;height:54px;margin:-27px 0 0 -27px;background:color-mix(in srgb,var(--y2) 14%,transparent)}
 .cur-ring.is-down{width:22px;height:22px;margin:-11px 0 0 -11px}
-@media(prefers-reduced-motion:reduce){.accent-ring{display:none}.cur-ring{transition:none}}
+@media(prefers-reduced-motion:reduce){.cur-ring{transition:none}}
