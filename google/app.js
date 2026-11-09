@@ -43,21 +43,6 @@
   rail.addEventListener("scroll", function () { requestAnimationFrame(updateDots); }, { passive: true });
   updateDots();
 
-  // Нижняя панель: подсвечиваем раздел, который сейчас на экране
-  var links = document.querySelectorAll(".dockbar a");
-  var ids = ["projects", "about", "stack", "links"];
-  function spy() {
-    var y = window.scrollY + window.innerHeight * 0.4, cur = ids[0];
-    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) cur = "links";
-    else ids.forEach(function (id) {
-      var el = document.getElementById(id);
-      if (el && el.getBoundingClientRect().top + window.scrollY <= y) cur = id;
-    });
-    links.forEach(function (a) { a.classList.toggle("is-on", a.getAttribute("data-s") === cur); });
-  }
-  window.addEventListener("scroll", function () { requestAnimationFrame(spy); }, { passive: true });
-  spy();
-
   var year = document.getElementById("year");
   if (year) year.textContent = new Date().getFullYear();
 })();
