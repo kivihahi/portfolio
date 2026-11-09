@@ -31,7 +31,7 @@
 .pet-bubble::after{content:"";position:absolute;left:20px;bottom:-5px;width:11px;height:11px;border-radius:2px;background:#f2f2f2;transform:rotate(45deg)}
 .pet-bubble.is-on{opacity:1;transform:none}
 
-.toast{position:fixed;z-index:90;left:50%;bottom:calc(112px + env(safe-area-inset-bottom,0px));max-width:calc(100vw - 32px);padding:10px 16px;border:1px solid #333;border-radius:999px;background:#1a1a1a;color:#f2f2f2;font:600 14px/1.2 var(--font,system-ui,sans-serif);text-align:center;opacity:0;transform:translate(-50%,8px);transition:opacity .2s ease,transform .24s ease;pointer-events:none}
+.toast{position:fixed;z-index:90;left:50%;bottom:calc(104px + env(safe-area-inset-bottom,0px));max-width:calc(100vw - 32px);padding:10px 16px;border:1px solid #333;border-radius:999px;background:#1a1a1a;color:#f2f2f2;font:600 14px/1.2 var(--font,system-ui,sans-serif);text-align:center;opacity:0;transform:translate(-50%,8px);transition:opacity .2s ease,transform .24s ease;pointer-events:none}
 .toast.is-on{opacity:1;transform:translate(-50%,0)}
 
 .copyable{cursor:pointer;text-decoration:underline dotted rgba(255,255,255,.4);text-underline-offset:3px}
@@ -39,7 +39,7 @@
 .copyable:focus-visible{outline:2px solid #fff;outline-offset:3px;border-radius:4px}
 
 @media(max-width:560px){
-.pet{left:max(12px,env(safe-area-inset-left,0px));bottom:calc(100px + env(safe-area-inset-bottom,0px))}
+.pet{left:max(12px,env(safe-area-inset-left,0px));bottom:calc(92px + env(safe-area-inset-bottom,0px))}
 .pet-btn{width:48px;height:36px}
 }
 @media(prefers-reduced-motion:reduce){

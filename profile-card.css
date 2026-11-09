@@ -89,6 +89,6 @@ body{overflow-x:clip}
 
 @media(max-width:560px){
   .dock{position:fixed;top:auto;left:0;right:0;bottom:0;width:100%;z-index:70;transform:none!important}
-  .dock-in{padding-bottom:max(16px,env(safe-area-inset-bottom,16px))}
-  .profile-view{padding-bottom:calc(136px + env(safe-area-inset-bottom,0px))}
+  .dock-in{padding-bottom:max(8px,env(safe-area-inset-bottom,8px))}
+  .profile-view{padding-bottom:calc(128px + env(safe-area-inset-bottom,0px))}
 }
