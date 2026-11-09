@@ -10,8 +10,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&display=swap">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Cdefs%3E%3ClinearGradient id=%27g%27 x1=%270%27 y1=%271%27 x2=%271%27 y2=%270%27%3E%3Cstop offset=%270%27 stop-color=%27%234285f4%27/%3E%3Cstop offset=%27.5%27 stop-color=%27%239b72cb%27/%3E%3Cstop offset=%271%27 stop-color=%27%23f2a65a%27/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x=%274%27 y=%274%27 width=%2716%27 height=%2716%27 rx=%275%27 transform=%27rotate(45 12 12)%27 fill=%27url(%23g)%27/%3E%3C/svg%3E">
-<link rel="stylesheet" href="style.css?v=3">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Cpath d=%27M12 2.5l1.6 5.7 5.3-3-3 5.3 5.6 1.5-5.6 1.5 3 5.3-5.3-3L12 21.5l-1.6-5.7-5.3 3 3-5.3L3.5 12.8l5.6-1.5-3-5.3 5.3 3z%27/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css?v=4">
 </head>
 <body>
 <a class="skip" href="#main">Перейти к содержимому</a>
@@ -19,7 +19,7 @@
 <header class="top">
   <div class="top-in">
     <a class="brand" href="#top" aria-label="Kivi — наверх">
-      <span class="mark" aria-hidden="true"></span><span class="word">Kivi</span>
+      <svg class="star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l1.6 5.7 5.3-3-3 5.3 5.6 1.5-5.6 1.5 3 5.3-5.3-3L12 21.5l-1.6-5.7-5.3 3 3-5.3L3.5 12.8l5.6-1.5-3-5.3 5.3 3z"/></svg><span class="word">Kivi</span>
     </a>
     <nav class="menu" id="menu" aria-label="Основная навигация">
       <a href="#projects">Проекты</a>
@@ -42,7 +42,7 @@
     <div class="rail" id="rail-projects" tabindex="0">
       <a class="pcard c-blue" href="https://github.com/kivihahi/T3KOT" target="_blank" rel="noopener">
         <img src="../assets/cover-t3kot.webp" alt="Обложка проекта T3KOT" width="960" height="960" loading="lazy">
-        <div class="glass"><p>T3KOT: игра про туман и высоту. Главный проект студии.</p><span class="go">Открыть на GitHub <i aria-hidden="true">↗</i></span></div>
+        <div class="glass"><p>T3KOT: игра про туман и высоту.</p><span class="go">Открыть на GitHub <i aria-hidden="true">↗</i></span></div>
       </a>
       <a class="pcard c-peach" href="https://github.com/kivihahi/T3KOTsite" target="_blank" rel="noopener">
         <img src="../assets/cover-t3kotsite.webp" alt="Обложка проекта T3KOTsite" width="720" height="720" loading="lazy">
@@ -61,14 +61,13 @@
 
   <section class="block" id="about">
     <h2>Разработчик <span class="blue">игр и интерфейсов</span></h2>
-    <p class="big">Меня зовут Тимофей, ник Kivi. Мне 15, я делаю опенсорс-проекты, экспериментирую с интерфейсами и разрабатываю небольшие игры и программы в студии Ætherfive.</p>
+    <p class="big">Меня зовут Тимофей, ник Kivi. Мне 15, я делаю опенсорс-проекты, экспериментирую с интерфейсами и разрабатываю небольшие игры и программы.</p>
     <img class="hero-img" src="../assets/profile-cat.webp" alt="Аватар с нарисованным котиком" width="800" height="800" loading="lazy">
 
     <div class="rail rail-dots" id="rail-facts" tabindex="0">
       <article class="fcard f1"><h3>Увлекаюсь</h3><p>Linux, Android-модификации, веб-разработка и игры.</p></article>
       <article class="fcard f2"><h3>Компьютер</h3><p>Fedora и Arch Linux.</p></article>
-      <article class="fcard f3"><h3>Мобильные системы</h3><p>Nothing OS, iOS и LineageOS 17 (Android 10).</p></article>
-      <article class="fcard f4"><h3>Студия</h3><p>Ætherfive, команда из пяти человек, делаем инди-игры.</p></article>
+      <article class="fcard f3"><h3>Мобильные системы</h3><p>Nothing OS, iOS и LineageOS 24 на Android 17.</p></article>
     </div>
     <div class="dots" id="dots" aria-hidden="true"></div>
   </section>
@@ -86,7 +85,7 @@
     <div class="fgroup"><h4>Проекты</h4><a href="https://github.com/kivihahi/T3KOT" target="_blank" rel="noopener">T3KOT</a><a href="https://github.com/kivihahi/T3KOTsite" target="_blank" rel="noopener">T3KOTsite</a><a href="https://github.com/kivihahi/mzvpn" target="_blank" rel="noopener">mzvpn</a></div>
     <div class="fgroup"><h4>Обо мне</h4><a href="#about">Разработчик</a><a href="#stack">Стек</a><a href="../">Основная версия сайта</a></div>
     <div class="fgroup"><h4>Социальные сети</h4><a href="https://github.com/kivihahi" target="_blank" rel="noopener">GitHub</a><a href="https://t.me/kividev" target="_blank" rel="noopener">Telegram</a></div>
-    <div class="foot-brand"><span class="mark" aria-hidden="true"></span><span class="word">Kivi</span></div>
+    <div class="foot-brand"><svg class="star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l1.6 5.7 5.3-3-3 5.3 5.6 1.5-5.6 1.5 3 5.3-5.3-3L12 21.5l-1.6-5.7-5.3 3 3-5.3L3.5 12.8l5.6-1.5-3-5.3 5.3 3z"/></svg><span class="word">Kivi</span></div>
     <p class="disclaimer">Неофициальная учебная версия портфолио в стиле Material. Проекты принадлежат их авторам. © <span id="year">2026</span> Kivi</p>
   </div>
 </footer>
@@ -97,6 +96,6 @@
   <a href="#stack" data-s="stack">Стек</a>
   <a href="#links" data-s="links">Связь</a>
 </nav>
-<script src="app.js?v=3" defer></script>
+<script src="app.js?v=4" defer></script>
 </body>
 </html>
