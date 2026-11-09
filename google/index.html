@@ -3,13 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Kivi — проекты и заметки</title>
+<title>Kivi — исследуй проекты</title>
 <meta name="description" content="Портфолио Kivi (Тимофей): опенсорс-проекты, игры и эксперименты с интерфейсами. Версия в стиле Material.">
-<meta name="color-scheme" content="light dark">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#ffffff">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Cdefs%3E%3ClinearGradient id=%27g%27 x1=%270%27 y1=%271%27 x2=%271%27 y2=%270%27%3E%3Cstop offset=%270%27 stop-color=%27%234285f4%27/%3E%3Cstop offset=%27.5%27 stop-color=%27%239b72cb%27/%3E%3Cstop offset=%271%27 stop-color=%27%23d96570%27/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath fill=%27url(%23g)%27 d=%27M12 1c.6 6.600 4.400 10.400 11 11-6.600.600-10.400 4.400-11 11-.600-6.600-4.400-10.400-11-11 6.600-.600 10.400-4.400 11-11z%27/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&display=swap">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Cdefs%3E%3ClinearGradient id=%27g%27 x1=%270%27 y1=%271%27 x2=%271%27 y2=%270%27%3E%3Cstop offset=%270%27 stop-color=%27%234285f4%27/%3E%3Cstop offset=%27.5%27 stop-color=%27%239b72cb%27/%3E%3Cstop offset=%271%27 stop-color=%27%23f2a65a%27/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x=%274%27 y=%274%27 width=%2716%27 height=%2716%27 rx=%275%27 transform=%27rotate(45 12 12)%27 fill=%27url(%23g)%27/%3E%3C/svg%3E">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -17,121 +18,85 @@
 
 <header class="top">
   <div class="top-in">
-    <a class="brand" href="#top" aria-label="Kivi — на главную">
-      <svg class="spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1c.6 6.600 4.400 10.400 11 11-6.600.600-10.400 4.400-11 11-.600-6.600-4.400-10.400-11-11 6.600-.600 10.400-4.400 11-11z"/></svg>
-      <span>Kivi</span>
+    <a class="brand" href="#top" aria-label="Kivi — наверх">
+      <span class="mark" aria-hidden="true"></span><span class="word">Kivi</span>
     </a>
     <nav class="menu" id="menu" aria-label="Основная навигация">
-      <a href="#about">Обо мне</a>
       <a href="#projects">Проекты</a>
+      <a href="#about">Обо мне</a>
       <a href="#stack">Стек</a>
-      <a href="#profile">Профиль</a>
+      <a href="#links">Связь</a>
+      <a class="menu-cta" href="https://github.com/kivihahi" target="_blank" rel="noopener">GitHub</a>
     </nav>
-    <div class="top-actions">
-      <a class="pill pill-fill" href="https://github.com/kivihahi" target="_blank" rel="noopener">GitHub</a>
-      <button class="burger" id="burger" type="button" aria-label="Меню" aria-expanded="false" aria-controls="menu"><span></span><span></span></button>
-    </div>
+    <button class="burger" id="burger" type="button" aria-label="Меню" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
   </div>
 </header>
 
 <main id="main">
   <section class="hero" id="top">
-    <div class="glow" aria-hidden="true"></div>
-    <p class="chip">Портфолио · обновления</p>
-    <h1>Привет, я <span class="grad">Kivi</span></h1>
-    <p class="lead">Делаю опенсорс-проекты, экспериментирую с интерфейсами и разрабатываю небольшие игры и программы. Здесь собрано то, что я выпускаю.</p>
-    <div class="hero-cta">
-      <a class="pill pill-fill" href="#projects">Смотреть проекты</a>
-      <a class="pill pill-line" href="https://t.me/kividev" target="_blank" rel="noopener">Telegram-канал</a>
-    </div>
+    <h1>я хочу <span class="swap" id="swap" aria-live="polite">исследовать</span><br>вместе с Kivi</h1>
+    <p class="hero-sub">Нажмите на карточку, чтобы открыть любой из проектов.</p>
   </section>
 
-  <section class="sec" id="about">
-    <h2>Что нового</h2>
-    <div class="feature">
-      <a class="big-card" href="https://github.com/kivihahi/T3KOT" target="_blank" rel="noopener">
+  <section class="rail-wrap" id="projects" aria-label="Проекты">
+    <div class="rail" id="rail-projects" tabindex="0">
+      <a class="pcard c-blue" href="https://github.com/kivihahi/T3KOT" target="_blank" rel="noopener">
         <img src="../assets/cover-t3kot.webp" alt="Обложка проекта T3KOT" width="960" height="960" loading="lazy">
-        <div class="big-body">
-          <span class="tag">Игры</span>
-          <h3>T3KOT</h3>
-          <p>Игра про туман и высоту. Главный проект студии, в нём я занимаюсь интерфейсом и сайтом.</p>
-          <span class="more">Открыть на GitHub <i aria-hidden="true">→</i></span>
-        </div>
+        <div class="glass"><p>T3KOT: игра про туман и высоту. Главный проект студии.</p><span class="go">Открыть на GitHub <i aria-hidden="true">↗</i></span></div>
       </a>
-      <a class="big-card rev" href="https://github.com/kivihahi/mzvpn" target="_blank" rel="noopener">
+      <a class="pcard c-peach" href="https://github.com/kivihahi/T3KOTsite" target="_blank" rel="noopener">
+        <img src="../assets/cover-t3kotsite.webp" alt="Обложка проекта T3KOTsite" width="720" height="720" loading="lazy">
+        <div class="glass"><p>T3KOTsite: сайт игры. Чистый HTML и CSS без лишнего.</p><span class="go">Открыть на GitHub <i aria-hidden="true">↗</i></span></div>
+      </a>
+      <a class="pcard c-violet" href="https://github.com/kivihahi/mzvpn" target="_blank" rel="noopener">
         <img src="../assets/cover-mzvpn.webp" alt="Обложка проекта mzvpn" width="960" height="831" loading="lazy">
-        <div class="big-body">
-          <span class="tag">Инструменты</span>
-          <h3>mzvpn</h3>
-          <p>Небольшой VPN-инструмент на Rust. Простая настройка и ничего лишнего.</p>
-          <span class="more">Открыть на GitHub <i aria-hidden="true">→</i></span>
-        </div>
+        <div class="glass"><p>mzvpn: небольшой VPN-инструмент на Rust.</p><span class="go">Открыть на GitHub <i aria-hidden="true">↗</i></span></div>
+      </a>
+      <a class="pcard c-mint" href="https://t.me/kividev" target="_blank" rel="noopener">
+        <img src="../assets/cover-t3kot.webp" alt="Обложка Telegram-канала" width="960" height="960" loading="lazy">
+        <div class="glass"><p>Telegram-канал: заметки о разработке и новости проектов.</p><span class="go">Открыть в Telegram <i aria-hidden="true">↗</i></span></div>
       </a>
     </div>
   </section>
 
-  <section class="sec" id="projects">
-    <h2>Все проекты</h2>
-    <div class="tabs" role="tablist" aria-label="Фильтр проектов">
-      <button class="tab is-on" type="button" role="tab" aria-selected="true" data-f="all">Все</button>
-      <button class="tab" type="button" role="tab" aria-selected="false" data-f="games">Игры</button>
-      <button class="tab" type="button" role="tab" aria-selected="false" data-f="tools">Инструменты</button>
-      <button class="tab" type="button" role="tab" aria-selected="false" data-f="web">Сайты</button>
+  <section class="block" id="about">
+    <h2>Разработчик <span class="blue">игр и интерфейсов</span></h2>
+    <p class="big">Меня зовут Тимофей, ник Kivi. Мне 15, я делаю опенсорс-проекты, экспериментирую с интерфейсами и разрабатываю небольшие игры и программы в студии Ætherfive.</p>
+    <img class="hero-img" src="../assets/profile-cat.webp" alt="Аватар с нарисованным котиком" width="800" height="800" loading="lazy">
+
+    <div class="rail rail-dots" id="rail-facts" tabindex="0">
+      <article class="fcard f1"><h3>Увлекаюсь</h3><p>Linux, Android-модификации, веб-разработка и игры.</p></article>
+      <article class="fcard f2"><h3>Компьютер</h3><p>Fedora и Arch Linux.</p></article>
+      <article class="fcard f3"><h3>Мобильные системы</h3><p>Nothing OS и iOS.</p></article>
+      <article class="fcard f4"><h3>Студия</h3><p>Ætherfive, команда из пяти человек, делаем инди-игры.</p></article>
     </div>
-    <div class="grid" id="grid">
-      <a class="card" data-c="games" href="https://github.com/kivihahi/T3KOT" target="_blank" rel="noopener">
-        <img src="../assets/cover-t3kot.webp" alt="" width="960" height="960" loading="lazy">
-        <div class="card-body"><span class="tag">Игры</span><h3>T3KOT</h3><p>Игра про туман и высоту. GDScript.</p></div>
-      </a>
-      <a class="card" data-c="web" href="https://github.com/kivihahi/T3KOTsite" target="_blank" rel="noopener">
-        <img src="../assets/cover-t3kotsite.webp" alt="" width="720" height="720" loading="lazy">
-        <div class="card-body"><span class="tag">Сайты</span><h3>T3KOTsite</h3><p>Сайт игры T3KOT. HTML.</p></div>
-      </a>
-      <a class="card" data-c="tools" href="https://github.com/kivihahi/mzvpn" target="_blank" rel="noopener">
-        <img src="../assets/cover-mzvpn.webp" alt="" width="960" height="831" loading="lazy">
-        <div class="card-body"><span class="tag">Инструменты</span><h3>mzvpn</h3><p>VPN-инструмент на Rust.</p></div>
-      </a>
-    </div>
+    <div class="dots" id="dots" aria-hidden="true"></div>
   </section>
 
-  <section class="sec" id="stack">
-    <h2>С чем работаю</h2>
+  <section class="block" id="stack">
+    <h2>С чем <span class="blue">работаю</span></h2>
     <ul class="chips">
       <li>GDScript</li><li>Rust</li><li>HTML</li><li>CSS</li><li>JavaScript</li><li>Linux</li><li>Android</li>
     </ul>
   </section>
-
-  <section class="sec profile" id="profile">
-    <h2>Профиль</h2>
-    <div class="me">
-      <img class="avatar" src="../assets/profile-cat.webp" alt="Аватар с нарисованным котиком" width="120" height="120" loading="lazy">
-      <div>
-        <h3>Тимофей</h3>
-        <p class="muted">Ник · Kivi · 15 лет · День рождения 14 апреля</p>
-      </div>
-    </div>
-    <div class="facts">
-      <div class="fact"><b>Увлекаюсь</b><span>Linux, Android-модификации, веб-разработка, игры</span></div>
-      <div class="fact"><b>Компьютер</b><span>Fedora, Arch Linux</span></div>
-      <div class="fact"><b>Мобильные системы</b><span>Nothing OS, iOS</span></div>
-    </div>
-  </section>
 </main>
 
-<footer class="foot">
+<footer class="foot" id="links">
   <div class="foot-in">
-    <p class="disclaimer">Это неофициальная учебная версия портфолио в стиле Material. Проекты принадлежат их авторам. Описания приблизительные и могут меняться.</p>
-    <div class="cols">
-      <div><h4>Проекты</h4><a href="https://github.com/kivihahi/T3KOT" target="_blank" rel="noopener">T3KOT</a><a href="https://github.com/kivihahi/T3KOTsite" target="_blank" rel="noopener">T3KOTsite</a><a href="https://github.com/kivihahi/mzvpn" target="_blank" rel="noopener">mzvpn</a></div>
-      <div><h4>Обо мне</h4><a href="#about">Что нового</a><a href="#stack">Стек</a><a href="#profile">Профиль</a></div>
-      <div><h4>Связь</h4><a href="https://github.com/kivihahi" target="_blank" rel="noopener">GitHub</a><a href="https://t.me/kividev" target="_blank" rel="noopener">Telegram</a><a href="../">Основная версия сайта</a></div>
-    </div>
-    <div class="foot-bottom">
-      <span>© <span id="year">2026</span> Kivi</span>
-      <a href="../">Тёмная версия с краб-питомцем</a>
-    </div>
+    <div class="fgroup"><h4>Проекты</h4><a href="https://github.com/kivihahi/T3KOT" target="_blank" rel="noopener">T3KOT</a><a href="https://github.com/kivihahi/T3KOTsite" target="_blank" rel="noopener">T3KOTsite</a><a href="https://github.com/kivihahi/mzvpn" target="_blank" rel="noopener">mzvpn</a></div>
+    <div class="fgroup"><h4>Обо мне</h4><a href="#about">Разработчик</a><a href="#stack">Стек</a><a href="../">Основная версия сайта</a></div>
+    <div class="fgroup"><h4>Социальные сети</h4><a href="https://github.com/kivihahi" target="_blank" rel="noopener">GitHub</a><a href="https://t.me/kividev" target="_blank" rel="noopener">Telegram</a></div>
+    <div class="foot-brand"><span class="mark" aria-hidden="true"></span><span class="word">Kivi</span></div>
+    <p class="disclaimer">Неофициальная учебная версия портфолио в стиле Material. Проекты принадлежат их авторам. © <span id="year">2026</span> Kivi</p>
   </div>
 </footer>
+
+<nav class="dockbar" id="dockbar" aria-label="Разделы страницы">
+  <a href="#projects" class="is-on" data-s="projects">Проекты</a>
+  <a href="#about" data-s="about">Обо мне</a>
+  <a href="#stack" data-s="stack">Стек</a>
+  <a href="#links" data-s="links">Связь</a>
+</nav>
 <script src="app.js" defer></script>
 </body>
 </html>
