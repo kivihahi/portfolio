@@ -121,6 +121,44 @@
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 
+
+  // Пасхалка: три быстрых клика по аватарке запускают дождь из аватарок
+  var avatar = document.querySelector(".hero-img");
+  var rainBusy = false;
+  function rand(min, max) { return min + Math.random() * (max - min); }
+  function startRain() {
+    if (reduced || rainBusy || !avatar) return;
+    rainBusy = true;
+    var layer = document.createElement("div");
+    layer.className = "rain";
+    layer.setAttribute("aria-hidden", "true");
+    var count = window.innerWidth < 600 ? 16 : 26, longest = 0;
+    var src = avatar.currentSrc || avatar.src;
+    for (var i = 0; i < count; i++) {
+      var img = new Image();
+      img.src = src; img.alt = ""; img.decoding = "async"; img.draggable = false;
+      var dur = rand(2.2, 3.6), delay = rand(0, 1.4);
+      longest = Math.max(longest, dur + delay);
+      img.style.setProperty("--x", rand(0, 92).toFixed(1) + "%");
+      img.style.setProperty("--s", Math.round(rand(36, 64)) + "px");
+      img.style.setProperty("--d", dur.toFixed(2) + "s");
+      img.style.setProperty("--dl", delay.toFixed(2) + "s");
+      img.style.setProperty("--r", Math.round(rand(-60, 60)) + "deg");
+      layer.appendChild(img);
+    }
+    document.body.appendChild(layer);
+    setTimeout(function () { layer.remove(); rainBusy = false; }, Math.ceil(longest * 1000) + 150);
+  }
+  var clicks = [];
+  if (avatar) {
+    avatar.addEventListener("click", function () {
+      var now = Date.now();
+      clicks = clicks.filter(function (t) { return now - t < 1600; });
+      clicks.push(now);
+      if (clicks.length >= 3) { clicks = []; startRain(); }
+    });
+  }
+
   // Точки под лентой с карточками
   var rail = document.getElementById("rail-facts");
   var dotsBox = document.getElementById("dots");

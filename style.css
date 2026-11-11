@@ -147,3 +147,14 @@ h1{font-size:clamp(40px,7.4vw,92px);line-height:1.18;letter-spacing:-.035em}
   .menu.is-open{visibility:visible;opacity:1;transform:none;transition:opacity .35s var(--ease),transform .45s var(--ease-out),visibility 0s}
 }
 @media(prefers-reduced-motion:reduce){.js .rv{opacity:1;transform:none;filter:none;transition:none}}
+
+/* Дождь из аватарок: только transform и opacity, без теней, чтобы не лагало */
+.hero-img{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:manipulation;cursor:pointer}
+.rain{position:fixed;inset:0;z-index:95;overflow:hidden;pointer-events:none;contain:strict}
+.rain img{position:absolute;top:-80px;left:var(--x);width:var(--s);height:var(--s);border-radius:50%;object-fit:cover;background:#f7f5f5;opacity:0;backface-visibility:hidden;will-change:transform,opacity;animation:rain-fall var(--d) var(--dl) linear both}
+@keyframes rain-fall{
+0%{transform:translate3d(0,0,0) rotate(0);opacity:0}
+8%{opacity:1}
+90%{opacity:1}
+100%{transform:translate3d(0,calc(100vh + 160px),0) rotate(var(--r));opacity:0}}
+@media(prefers-reduced-motion:reduce){.rain{display:none}}
