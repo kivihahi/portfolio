@@ -121,3 +121,5 @@ h1{font-size:clamp(40px,7.4vw,92px);line-height:1.18;letter-spacing:-.035em}
 .faq summary::after{content:"+";font-size:30px;line-height:1;color:var(--blue);transition:transform .25s}
 .faq details[open] summary::after{transform:rotate(45deg)}
 .faq p{margin:0;padding:0 0 24px;color:#444;font-size:18px;line-height:1.5}
+.duo{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:36px;text-align:left}
+.duo .fcard{flex:none;min-height:0}
