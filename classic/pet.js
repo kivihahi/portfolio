@@ -116,7 +116,7 @@
   var reduced = window.matchMedia &&
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var avatar = document.querySelector(".id-card-avatar");
-  var src = (avatar && avatar.getAttribute("src")) || "assets/profile-cat.webp";
+  var src = (avatar && avatar.getAttribute("src")) || "../assets/profile-cat.webp";
   var busy = false;
 
   function rand(min, max) {
