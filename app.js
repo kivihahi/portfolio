@@ -98,7 +98,7 @@
         if (!e.isIntersecting) return;
         e.target.classList.add("in");
         io.unobserve(e.target);
-        setTimeout(function () { e.target.classList.add("done"); }, 1800);
+        setTimeout(function () { e.target.classList.add("done"); }, 1100);
       });
     }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
     targets.forEach(function (el) { io.observe(el); });
