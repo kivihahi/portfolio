@@ -79,6 +79,48 @@
     rail.addEventListener("dragstart", function (e) { e.preventDefault(); });
   });
 
+
+  // Появление блоков при прокрутке
+  var targets = document.querySelectorAll(
+    ".hero h1,.hero-sub,.pcard,.block h2,.big,.hero-img,.fcard,.steps li,.chips li,.faq details,.fgroup,.foot-brand,.disclaimer");
+  var groups = new Map();
+  targets.forEach(function (el) {
+    el.classList.add("rv");
+    var p = el.parentElement, n = groups.get(p) || 0;
+    groups.set(p, n + 1);
+    el.style.setProperty("--i", Math.min(n, 6));
+  });
+  if (reduced || !("IntersectionObserver" in window)) {
+    targets.forEach(function (el) { el.classList.add("in"); });
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.classList.add("in");
+        io.unobserve(e.target);
+        setTimeout(function () { e.target.classList.add("done"); }, 1800);
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
+    targets.forEach(function (el) { io.observe(el); });
+  }
+
+  // Шапка получает мягкую тень при прокрутке, свечение чуть смещается (параллакс)
+  var top = document.querySelector(".top");
+  var glow = document.querySelector(".glow");
+  var ticking = false;
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () {
+      var y = window.scrollY;
+      top.classList.toggle("is-stuck", y > 8);
+      if (glow && !reduced && y < 900) glow.style.transform = "translate3d(0," + (y * 0.18).toFixed(1) + "px,0)";
+      ticking = false;
+    });
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
   // Точки под лентой с карточками
   var rail = document.getElementById("rail-facts");
   var dotsBox = document.getElementById("dots");
