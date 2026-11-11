@@ -107,3 +107,13 @@ html.has-cursor.cur-on .cur-dot,html.has-cursor.cur-on .cur-ring{opacity:1}
 .cur-ring.is-link{width:54px;height:54px;margin:-27px 0 0 -27px;background:color-mix(in srgb,var(--y2) 14%,transparent)}
 .cur-ring.is-down{width:22px;height:22px;margin:-11px 0 0 -11px}
 @media(prefers-reduced-motion:reduce){.cur-ring{transition:none}}
+
+/* Мини-FAQ в профиле */
+.faq{display:grid;gap:10px}
+.faq details{border:1px solid #2b2b2b;border-radius:18px;padding:0 18px;background:#141414}
+.faq summary{list-style:none;cursor:pointer;padding:16px 0;font-weight:600;display:flex;justify-content:space-between;gap:12px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--y2);font-size:22px;line-height:1;transition:transform .2s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq p{margin:0;padding:0 0 16px;color:var(--gray);line-height:1.5}
+html[data-theme="light"] .faq details{border-color:#ddd7cf;background:#fff}
