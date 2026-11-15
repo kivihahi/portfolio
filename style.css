@@ -73,19 +73,19 @@ h1{font-size:clamp(40px,7.4vw,92px);line-height:1.18;letter-spacing:-.035em}
 /* Блоки */
 .block{max-width:900px;margin:0 auto;padding:clamp(56px,9vw,110px) var(--gut) 0;text-align:center}
 .block h2{font-size:clamp(38px,6.6vw,80px);line-height:1.08}
-.blue{color:var(--blue2);background:linear-gradient(90deg,#3b7bf6,#5aa0ff);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.blue{color:var(--blue2);background:linear-gradient(90deg,var(--blue),var(--blue2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .big{margin:32px auto 0;font-size:clamp(20px,3vw,30px);line-height:1.45;max-width:30em}
 .hero-img{width:100%;height:auto;max-width:220px;margin:44px auto 0;border-radius:50%;aspect-ratio:1;object-fit:cover;background:#f6f1f1}
 .rail-dots{margin:36px calc(var(--gut)*-1) 0;justify-content:flex-start;text-align:left}
 .fcard{flex:0 0 min(78vw,320px);scroll-snap-align:center;border-radius:32px;padding:28px 26px 30px;min-height:230px;display:flex;flex-direction:column;gap:12px}
 .fcard h3{font-size:28px}
 .fcard p{margin:0;font-size:19px;line-height:1.4}
-.f4{background:#fff3cf}.f1{background:#e8f0fe}.f2{background:#fde8e1}.f3{background:#efe6fb}.f4{background:#def5ec}
+.f4{background:#fff3cf}.f1{background:var(--tint)}.f2{background:#fde8e1}.f3{background:#efe6fb}.f4{background:#def5ec}
 .dots{display:flex;justify-content:center;gap:12px;margin-top:8px}
 .dots i{width:12px;height:12px;border-radius:99px;background:#d9d9d9;transition:width .3s,background .3s}
-.dots i.is-on{width:44px;background:linear-gradient(90deg,#3b7bf6,#7a9bff)}
+.dots i.is-on{width:44px;background:linear-gradient(90deg,var(--blue),var(--blue2))}
 .chips{list-style:none;margin:40px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
-.chips li{padding:14px 26px;border-radius:999px;background:var(--soft);color:#1a3a7a;font-size:20px}
+.chips li{padding:14px 26px;border-radius:999px;background:var(--soft);color:var(--ink);font-size:20px}
 
 /* Подвал */
 .foot{margin-top:clamp(72px,10vw,130px);padding:0 var(--gut) 56px}
@@ -200,13 +200,13 @@ html[data-theme="dark"] .hero-sub,html[data-theme="dark"] .fgroup h4,html[data-t
 html[data-theme="dark"] .menu{background:var(--bg)}
 html[data-theme="dark"] .rail-btn{background:rgba(38,39,41,.95);color:#fff;border-color:#3a3b3d}
 html[data-theme="dark"] .hero-img,html[data-theme="dark"] .rain img{background:#f7f5f5}
-html[data-theme="dark"] .f1{background:#1c2740}
+html[data-theme="dark"] .f1{background:var(--tint)}
 html[data-theme="dark"] .f2{background:#3a2420}
 html[data-theme="dark"] .f3{background:#2b2342}
 html[data-theme="dark"] .f4{background:#1b3a30}
 html[data-theme="dark"] .fcard h3,html[data-theme="dark"] .fcard p{color:#ececec}
 html[data-theme="dark"] .dots i{background:#3a3b3d}
-html[data-theme="dark"] .chips li{background:var(--soft);color:#cfe0ff}
+html[data-theme="dark"] .chips li{background:var(--soft);color:var(--ink)}
 html[data-theme="dark"] .plans li{background:#2b2342;color:#dccbff}
 html[data-theme="dark"] .steps span{color:#b5b5b5}
 html[data-theme="dark"] .steps li::before{color:#0b1020}
@@ -217,3 +217,11 @@ html[data-theme="dark"] .swap{color:var(--blue)}
 html[data-theme="dark"] .top.is-stuck{box-shadow:0 10px 30px -22px rgba(0,0,0,.8)}
 html[data-theme="dark"] .glow{opacity:.55}
 body,.top,.menu,.faq details,.chips li,.fcard,.steps li{transition-property:background-color,color,border-color,box-shadow,transform,opacity,filter;transition-duration:.4s}
+
+/* Акцент устройства: все синие элементы (надписи, «бета», плашки, точки) берут AccentColor */
+:root{--ink:#1a3a7a;--tint:#e8f0fe}
+html[data-theme="dark"]{--ink:#cfe0ff;--tint:#1c2740}
+@supports (color:AccentColor){
+  :root{--blue:AccentColor;--blue2:color-mix(in oklab,AccentColor 78%,white);--soft:color-mix(in oklab,AccentColor 9%,var(--bg));--tint:color-mix(in oklab,AccentColor 12%,var(--bg));--ink:color-mix(in oklab,AccentColor 55%,black)}
+  html[data-theme="dark"]{--blue:color-mix(in oklab,AccentColor 62%,white);--blue2:color-mix(in oklab,AccentColor 45%,white);--soft:color-mix(in oklab,AccentColor 20%,var(--bg));--tint:color-mix(in oklab,AccentColor 20%,var(--bg));--ink:color-mix(in oklab,AccentColor 35%,white)}
+}
