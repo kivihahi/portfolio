@@ -80,6 +80,30 @@
   });
 
 
+
+  // Переключатель темы: по умолчанию тема устройства, ручной выбор запоминается
+  var themeBtn = document.getElementById("theme-btn");
+  var themeMeta = document.querySelector('meta[name="theme-color"]');
+  var rootEl = document.documentElement;
+  var darkMq = window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : null;
+  function applyTheme(t) {
+    rootEl.setAttribute("data-theme", t);
+    if (themeMeta) themeMeta.setAttribute("content", t === "dark" ? "#131314" : "#ffffff");
+    if (themeBtn) themeBtn.setAttribute("aria-label", t === "dark" ? "Включить светлую тему" : "Включить тёмную тему");
+  }
+  applyTheme(rootEl.getAttribute("data-theme") === "dark" ? "dark" : "light");
+  if (themeBtn) themeBtn.addEventListener("click", function () {
+    var next = rootEl.getAttribute("data-theme") === "dark" ? "light" : "dark";
+    try { localStorage.setItem("theme", next); } catch (e) {}
+    if (document.startViewTransition && !reduced) document.startViewTransition(function () { applyTheme(next); });
+    else applyTheme(next);
+  });
+  if (darkMq && darkMq.addEventListener) darkMq.addEventListener("change", function (e) {
+    var saved = null;
+    try { saved = localStorage.getItem("theme"); } catch (er) {}
+    if (saved !== "light" && saved !== "dark") applyTheme(e.matches ? "dark" : "light");
+  });
+
   // Появление блоков при прокрутке
   var targets = document.querySelectorAll(
     ".hero h1,.hero-sub,.pcard,.block h2,.big,.hero-img,.fcard,.steps li,.chips li,.faq details,.fgroup,.foot-brand,.disclaimer");
